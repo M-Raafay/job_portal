@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Users{
+ //  id Int @id @default(uuid()) @db.Uuid 
+  id String @id @default(uuid())// @db.Uuid // uuid is alphanumeric hence changed from Int to String
+  firstName String 
+  middleName String 
+  lastName String
+  email String @unique()
+  password String 
+  mobilePhone BigInt 
+  whatsapp BigInt 
+  role Role //update role in enum and signup dto accordingly
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())  
+
+
+  @@map(name: "users")
+}
+
+enum Role{
+    User
+    Admin
+    Super_Admin
+}
+
